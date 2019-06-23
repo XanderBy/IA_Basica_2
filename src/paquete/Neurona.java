@@ -30,6 +30,12 @@ public class Neurona {
 		this.sigmoide();
 	}
 	
+	/*
+	 * 
+	 * METODOS
+	 * 
+	 */
+	
 	//En este metodo Hacemos los calculos basicos de las entradas
 	//Siendo siempre en las capas iniciales
 	public float calculoXCapasIniciales() {

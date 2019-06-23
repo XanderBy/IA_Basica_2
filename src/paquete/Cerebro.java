@@ -18,8 +18,24 @@ public class Cerebro {
 		
 	}
 
+	/*
+	 * 
+	 * METODOS
+	 * 
+	 */
 	
+	//En este metodo lo que hariamos es hacemos los calculos de las neuronas, vemos si
+	//la salida del cerebro es correcta, si no es corregimos los valores de los pesos.	
+	public void aprender() {
+		
+	}
 	
+	//En este metodo lo que hacemos es corregir los pesos de cada neurona haciendo lo
+	//mediante derivadas parciales con los pesos.
+	public float corregir() {
+		//Aqui hariamos Nw= Aw - tasaAprendizaje * E
+		return 0;
+	}
 	
 	/*
 	 * 
