@@ -2,16 +2,17 @@ package paquete;
 
 public class Neurona {
 	//Umbral de la neurona
-	private float umbral;
+	public float umbral;
 	//Array con todas las entradas a dicha neurona
-	private float[] entradas;
+	public float[] entradas;
 	//Pesos que irian acompañando a las entradas de la neurona
-	private float[] pesos;
+	public float[] pesos;
 	//Valores salientes de la neurona
-	private float[] salidas;
+	public float[] salidas;
 	//capa de la neurona
-	private int capa;
-	
+	public int capa;
+	//Pesos que irian acompañando a las entradas de la neurona
+	public float[] pesosAntiguos;
 	
 	
 	/*
@@ -26,8 +27,9 @@ public class Neurona {
 		this.pesos = pesos;
 		this.salidas = salidas;
 		this.capa=capa;
+		this.pesosAntiguos=pesos;
 		
-		this.sigmoide();
+		//this.sigmoide();
 	}
 	
 	/*
@@ -105,6 +107,15 @@ public class Neurona {
 	public void setSalidas(float[] salidas) {
 		this.salidas = salidas;
 	}
+
+	public float[] getPesosAntiguos() {
+		return pesosAntiguos;
+	}
+
+	public void setPesosAntiguos(float[] pesosAntiguos) {
+		this.pesosAntiguos = pesosAntiguos;
+	}
+	
 	
 	
 	
