@@ -70,7 +70,7 @@ public class Cerebro {
 			for (int j = 0; j < this.matrizCerebro[i].length; j++) {
 				if (i == 0) {
 					
-					neurona = new Neurona(0, new float[1], new float[0],new float[this.matrizCerebro.length], 0);
+					neurona = new Neurona(0, new float[1], new float[0],new float[this.matrizCerebro[i+1].length], 0);
 					this.matrizCerebro[0][j] = neurona;
 					this.matrizCerebro[0][j].entradas[0] = this.entradas[contadorPrimeraCapa];
 					this.matrizCerebro[0][j].sigmoide();
@@ -78,6 +78,34 @@ public class Cerebro {
 					if(contadorPrimeraCapa==this.nEntradas) {
 						break;
 					}
+				}else if(i<(this.matrizCerebro.length-1)) {
+					//Inicializamos las demas
+					if (this.nEntradas < 3) {
+						neurona = new Neurona(1, new float[3], new float[3],new float[this.matrizCerebro[i+1].length], i);
+						float[] pesosNeurona=new float[3];
+						for (int k = 0; k < pesosNeurona.length; k++) {
+							pesosNeurona[k]=(float)Math.random()*1;
+						}
+						neurona.pesos=pesosNeurona;
+						neurona.pesosAntiguos=pesosNeurona;
+					} else {
+						neurona = new Neurona(1, new float[this.nEntradas], new float[this.nEntradas],new float[this.matrizCerebro.length], i);
+						float[] pesosNeurona=new float[this.nEntradas];
+						for (int k = 0; k < pesosNeurona.length; k++) {
+							pesosNeurona[k]=(float)Math.random()*1;
+						}
+						neurona.pesos=pesosNeurona;
+						neurona.pesosAntiguos=pesosNeurona;
+					}
+					
+					this.matrizCerebro[i][j]=neurona;
+					
+					for (int j2 = 0; j2 < this.matrizCerebro[i][j].entradas.length; j2++) {
+						this.matrizCerebro[i][j].entradas[j2] = this.entradas[j2];
+					}
+					this.matrizCerebro[i][j].sigmoide();
+				}else {
+					//
 				}
 				
 			}
