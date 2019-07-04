@@ -31,14 +31,22 @@ public class Cerebro {
 	// Salida correcta de la red
 	private float[] salidasDeseadas;
 
+	//Numero entradas Iniciales
+	private int numeroentradasIniciales;
+	//Numero Salida
+	private int numeroSalidas;
+	//Numero Prueba
+	private int numeroPruebaActual=0;
 	/*
 	 * 
 	 * CONSTRUCTOR
 	 * 
 	 */
 	public Cerebro(float tasaAprendizaje, int nEntradas, int nSalidas, int nCapas, float[] entradas,
-			float[] salidasDeseadas) {
+			float[] salidasDeseadas, int numeroentradasIniciales, int numeroSalidas) {
 		super();
+		this.numeroentradasIniciales=numeroentradasIniciales;
+		this.numeroSalidas=numeroSalidas;
 		this.tasaAprendizaje = tasaAprendizaje;
 		this.nEntradas = nEntradas;
 		this.nSalidas = nSalidas;
@@ -153,6 +161,16 @@ public class Cerebro {
 	// la salida del cerebro es correcta, si no es corregimos los valores de los
 	// pesos.
 	public void aprender() {
+		//Entradas  1 2
+		//Salidas 1
+		
+		/*int aux=this.numeroPruebaActual;
+		for (int i = 0; i < this.numeroSalidas; i++) {
+			if(this.salida[i]==this.salidasDeseadas[aux]) {
+				
+			}
+			aux=aux*;
+		}*/
 		
 		/*
 		 * float auxiliar=0; for (int i = 0; i < this.salida.length; i++) {
@@ -176,9 +194,10 @@ public class Cerebro {
 	// En este metodo lo que hacemos es corregir los pesos de cada neurona haciendo
 	// lo
 	// mediante derivadas parciales con los pesos.
-	public float corregir() {
+	public float corregir(float Aw, float e) {
 		// Aqui hariamos Nw= Aw - tasaAprendizaje * E
-		return 0;
+		float Nw= Aw - this.tasaAprendizaje * e;
+		return Nw;
 	}
 
 	/*
