@@ -164,6 +164,21 @@ public class Cerebro {
 		//Entradas  1 2
 		//Salidas 1
 		
+		
+		
+		
+		
+		
+		for (int i = this.numeroPruebaActual-1; i < this.entradas.length; i++) {
+			for (int j = 0; j < this.numeroentradasIniciales; j++) {
+				
+			}
+		}
+		for (int i = this.numeroPruebaActual-1; i < this.salidasDeseadas.length; i++) {
+			for (int j = 0; j < this.numeroSalidas; j++) {
+				
+			}
+		}
 		/*int aux=this.numeroPruebaActual;
 		for (int i = 0; i < this.numeroSalidas; i++) {
 			if(this.salida[i]==this.salidasDeseadas[aux]) {
