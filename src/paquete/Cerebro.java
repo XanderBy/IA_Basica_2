@@ -118,7 +118,7 @@ public class Cerebro {
 				} else if(i == (this.matrizCerebro.length - 1) && nSalidas!=contadorUltimaCapa) {
 					contadorUltimaCapa++;
 					// Ultima Capa
-					System.out.println("ULTIMA CAPA");
+					//System.out.println("ULTIMA CAPA");
 					if (this.nEntradas < 3) {
 						neurona = new Neurona(1, new float[3], new float[3], new float[this.nSalidas],
 								i);
@@ -150,9 +150,8 @@ public class Cerebro {
 
 			}
 		}
-		System.out.println(this.toStringCerebro());
-		System.out.println("Inicializar "+this.toStringSalida());
-		this.aprender();
+
+		this.aprender(neurona);
 		
 	}
 
@@ -160,50 +159,121 @@ public class Cerebro {
 	// si
 	// la salida del cerebro es correcta, si no es corregimos los valores de los
 	// pesos.
-	public void aprender() {
+	public void aprender(Neurona neurona) {
 		//Entradas  1 2
 		//Salidas 1
-		
-		
-		
-		
-		
-		
-		for (int i = this.numeroPruebaActual-1; i < this.entradas.length; i++) {
-			for (int j = 0; j < this.numeroentradasIniciales; j++) {
-				
-			}
-		}
-		for (int i = this.numeroPruebaActual-1; i < this.salidasDeseadas.length; i++) {
-			for (int j = 0; j < this.numeroSalidas; j++) {
-				
-			}
-		}
-		/*int aux=this.numeroPruebaActual;
-		for (int i = 0; i < this.numeroSalidas; i++) {
-			if(this.salida[i]==this.salidasDeseadas[aux]) {
-				
-			}
-			aux=aux*;
-		}*/
-		
-		/*
-		 * float auxiliar=0; for (int i = 0; i < this.salida.length; i++) {
-		 * 
-		 * for (int j = 0; 0 < this.matrizCerebro.length; j++) {
-		 * if(this.matrizCerebro[this.matrizCerebro.length-1][j]!=null &&
-		 * this.salida[i]!=0) {
-		 * 
-		 * for (int j2 = this.matrizCerebro.length-1; j2 > 0 ; j2--) { for (int k = 0; k
-		 * < this.matrizCerebro.length; k++) {
-		 * auxiliar=auxiliar+(this.matrizCerebro[j2-1][k].salidas[k] *
-		 * this.matrizCerebro[j2-1][k].pesos[k]); } }
-		 * 
-		 * 
-		 * //this.salida[i]= //this.matrizCerebro[i][j].setSalidas(salidas); } }
-		 * this.salida[i]=auxiliar; }
-		 */
+		int interacciones=0;
+		int contadorPrimeraCapa = 0,contadorUltimaCapa=0;
 
+		while(true) {
+			contadorPrimeraCapa = 0;
+			contadorUltimaCapa=0;
+			this.numeroPruebaActual++;
+			
+			
+			//Aqui comprobariamos si es correcta la salida si no es así se corrige
+			for (int i = 0; i < this.matrizCerebro.length; i++) {
+				for (int j = 0; j < this.matrizCerebro[i].length; j++) {
+					if (i == 0) {
+
+						neurona = new Neurona(0, new float[1], new float[0], new float[this.matrizCerebro[i + 1].length],
+								0);
+						this.matrizCerebro[0][j] = neurona;
+						this.matrizCerebro[0][j].entradas[0] = this.entradas[contadorPrimeraCapa];
+						this.matrizCerebro[0][j].sigmoide();
+						contadorPrimeraCapa++;
+						if (contadorPrimeraCapa == this.nEntradas) {
+							break;
+						}
+					} else if (i < (this.matrizCerebro.length - 1)) {
+						// Inicializamos las demas intermedias
+						if (this.nEntradas < 3) {
+							neurona = new Neurona(1, new float[3], new float[3],
+									new float[this.matrizCerebro[i + 1].length], i);
+							float[] pesosNeurona = new float[3];
+							for (int k = 0; k < pesosNeurona.length; k++) {
+								pesosNeurona[k] = (float) Math.random() * 1;
+							}
+							neurona.pesos = pesosNeurona;
+							neurona.pesosAntiguos = pesosNeurona;
+						} else {
+							neurona = new Neurona(1, new float[this.nEntradas], new float[this.nEntradas],
+									new float[this.matrizCerebro.length], i);
+							float[] pesosNeurona = new float[this.nEntradas];
+							for (int k = 0; k < pesosNeurona.length; k++) {
+								pesosNeurona[k] = (float) Math.random() * 1;
+							}
+							neurona.pesos = pesosNeurona;
+							neurona.pesosAntiguos = pesosNeurona;
+						}
+
+						this.matrizCerebro[i][j] = neurona;
+
+						for (int j2 = 0; j2 < this.matrizCerebro[i][j].entradas.length; j2++) {
+							this.matrizCerebro[i][j].entradas[j2] = this.entradas[j2];
+						}
+						this.matrizCerebro[i][j].sigmoide();
+					} else if(i == (this.matrizCerebro.length - 1) && nSalidas!=contadorUltimaCapa) {
+						contadorUltimaCapa++;
+						// Ultima Capa
+						//System.out.println("ULTIMA CAPA");
+						if (this.nEntradas < 3) {
+							neurona = new Neurona(1, new float[3], new float[3], new float[this.nSalidas],
+									i);
+							float[] pesosNeurona = new float[3];
+							for (int k = 0; k < pesosNeurona.length; k++) {
+								pesosNeurona[k] = (float) Math.random() * 1;
+							}
+							neurona.pesos = pesosNeurona;
+							neurona.pesosAntiguos = pesosNeurona;
+						} else {
+							neurona = new Neurona(1, new float[this.nEntradas], new float[this.nEntradas],
+									new float[this.nSalidas], i);
+							float[] pesosNeurona = new float[this.nEntradas];
+							for (int k = 0; k < pesosNeurona.length; k++) {
+								pesosNeurona[k] = (float) Math.random() * 1;
+							}
+							neurona.pesos = pesosNeurona;
+							neurona.pesosAntiguos = pesosNeurona;
+						}
+
+						this.matrizCerebro[i][j] = neurona;
+
+						for (int j2 = 0; j2 < this.matrizCerebro[i][j].entradas.length; j2++) {
+							this.matrizCerebro[i][j].entradas[j2] = this.entradas[j2];
+						}
+						this.matrizCerebro[i][j].sigmoide();
+						this.salida = this.matrizCerebro[i][j].salidas;
+					}
+
+				}
+			}
+			
+			/*for (int i = this.numeroPruebaActual-1; i < this.entradas.length; i++) {
+				for (int j = 0; j < this.numeroentradasIniciales; j++) {
+					
+				}
+			}*/
+			for (int i = this.numeroPruebaActual-1; i < this.salidasDeseadas.length; i++) {
+				for (int j = 0; j < this.numeroSalidas; j++) {
+					if(this.salida[j] <=this.salidasDeseadas[i]) {
+					System.out.println(this.salida[j]);	
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			if(interacciones==10) {
+				break;
+			}
+			interacciones++;
+		}
+		
+		System.out.println(this.toStringCerebro());
+		System.out.println("Inicializar "+this.toStringSalida());
 	}
 
 	// En este metodo lo que hacemos es corregir los pesos de cada neurona haciendo
